@@ -1,0 +1,15 @@
+###
+GET http://localhost:4000/user/create
+Content-Type: application/json
+
+{
+    "firstName":"rintu",
+    "lastName":"john",
+    "email": "rintu.john@bright.blue",
+    "password": "superSecret@201",
+    "role":"1",
+    "phoneNumber": "9400390752"
+}
+
+###
+

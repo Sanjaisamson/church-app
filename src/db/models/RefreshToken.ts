@@ -11,12 +11,12 @@ class RefreshToken extends Model {
 RefreshToken.init(
   {
     id: {
-      type: DataTypes.UUIDV4,
-      autoIncrement: true,
+      type: DataTypes.UUID,
+			defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     userId: {
-      type: DataTypes.UUIDV4,
+      type: DataTypes.UUID,
       allowNull: false,
     },
     refreshToken: {

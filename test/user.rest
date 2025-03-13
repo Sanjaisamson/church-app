@@ -1,15 +1,24 @@
 ###
-GET http://localhost:4000/user/create
+POST http://localhost:4000/user/create
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJiNGJlNDM4NS1mZGVlLTRjYjQtYmExNy0xMDBjODUwM2M3NWIiLCJpYXQiOjE3NDE3MjA2NjUsImV4cCI6MTc0MTcyMTI2NX0._L1K_rIazAf849Pd_s2NK8cdvgiCuVpSigm7ZfWdA9s
 
 {
-    "firstName":"rintu",
-    "lastName":"john",
-    "email": "rintu.john@bright.blue",
+    "firstName":"sanjai",
+    "lastName":"samson",
+    "email": "sanjai.samson@church.app",
     "password": "superSecret@201",
     "role":"1",
     "phoneNumber": "9400390752"
 }
 
 ###
+
+POST http://localhost:4000/user/login
+Content-Type: application/json
+
+{
+    "email": "rintu.john@bright.blue",
+    "password": "superSecret@201"
+}
 

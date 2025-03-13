@@ -53,7 +53,7 @@ async function createUser(payload: any) {
     return createUser;
   } catch (error: any) {
     console.log("Error while creating user");
-    throw error(error?.message);
+    throw error;
   }
 }
 
@@ -80,8 +80,8 @@ async function authenticateUser(payload: any) {
       throw new Error("user not found for this email");
     }
     const isVerified = await bcrypt.compare(
-      user.password,
-      userLoginPayload.password
+      userLoginPayload.password,
+      user.password
     );
     if (!isVerified) {
       throw new Error("password authentication failed ");
@@ -97,6 +97,7 @@ async function generateTokens(
   userId: any
 ): Promise<{ accessToken: string; refreshToken: string } | undefined> {
   try {
+    console.log("generateTokens function called");
     if (!secrets.accessToken || !secrets.refreshToken) {
       throw new Error("JWT secrets are not defined");
     }
@@ -115,11 +116,13 @@ async function generateTokens(
 
 async function saveTokens(userId: any, NewRefreshToken: any) {
   try {
+    console.log("saveTokens function called with newRefreshToken : ", NewRefreshToken);
     const refreshToken = await RefreshToken.findOne({
       where: {
         userId,
       },
     });
+    console.log("refreshToken at saveTokens function : ", refreshToken);
     if (refreshToken) {
       const updateToken = await RefreshToken.update(
         { refreshToken: NewRefreshToken },
@@ -127,12 +130,15 @@ async function saveTokens(userId: any, NewRefreshToken: any) {
           where: { userId },
         }
       );
+      console.log("updateToken at saveTokens function : ", updateToken);
       return updateToken;
     } else {
+      console.log("else block at saveTokens function");
       const newToken = await RefreshToken.create({
         userId,
-        token: refreshToken,
+        refreshToken: NewRefreshToken,
       });
+      console.log("newToken at saveTokens function : ", newToken);
       return newToken;
     }
   } catch (error) {
